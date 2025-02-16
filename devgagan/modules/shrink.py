@@ -56,27 +56,26 @@ async def token_handler(client, message):
         return
     user_id = message.chat.id
     if len(message.command) <= 1:
-        image_url = "https://envs.sh/ypf.jpg"
-        join_button = InlineKeyboardButton("Join Channel", url="https://t.me/Ur_amit_01")
-        premium = InlineKeyboardButton("Get Premium", url="https://t.me/hustlerr_01")  # Callback for Help button
+        image_url = "https://envs.sh/Q_x.jpg"
+        join_button = InlineKeyboardButton("📣 ᴜᴘᴅᴀᴛᴇꜱ", url="https://t.me/Ur_amit_01")
+        premium = InlineKeyboardButton("ɢᴇᴛ ᴘʀᴇᴍɪᴜᴍ 💸", url="https://t.me/axa_bachha")  # Callback for Help button
         keyboard = InlineKeyboardMarkup([
-            [join_button],  # First button
-            [premium]   # Second button
+            [join_button, premium]   # Buttons
         ])
         # Send the message with the image and keyboard
         await message.reply_photo(
             photo=image_url,
             caption=(
-                "Hi 👋 Welcome, Wanna intro...?\n\n"
-                "✳️ I can save posts from channels or groups where forwarding is off. I can download videos/audio from YT, INSTA, ... social platforms\n"
-                "✳️ Simply send the post link of a public channel. For private channels, do /login. Send /help to know more. \n\n"
-                "> Must check /terms, /plan & /help\n\n"
-                "> 👉 **__Note:__** Initiate /set to auto setup bot commands (owner only)"
+                "> **Hᴇʟʟᴏ ᴜꜱᴇʀ, ᴡᴇʟᴄᴏᴍᴇ! 👋**\n\n"
+                "**🧭 I ᴄᴀɴ ꜱᴀᴠᴇ ʀᴇꜱᴛʀɪᴄᴛᴇᴅ ᴘᴏꜱᴛꜱ ꜰʀᴏᴍ ᴄʜᴀɴɴᴇʟꜱ/ɢʀᴏᴜᴘꜱ & ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇᴅɪᴀ ꜰʀᴏᴍ ʏᴛ, ɪɴꜱᴛᴀ, ᴇᴛᴄ.**\n"
+                "**🧭 Jᴜꜱᴛ ꜱᴇɴᴅ ᴀ ᴘᴜʙʟɪᴄ ᴘᴏꜱᴛ ʟɪɴᴋ ᴏʀ ᴜꜱᴇ /login ꜰᴏʀ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀɴɴᴇʟꜱ.**\n\n"
+                "> Cʜᴇᴄᴋ /help & /plan ꜰᴏʀ ᴍᴏʀᴇ! 🚀"
             ),
             reply_markup=keyboard
         )
         return  
-        
+
+
     param = message.command[1] if len(message.command) > 1 else None
     freecheck = await chk_user(message, user_id)
     if freecheck != 1:
