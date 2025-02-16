@@ -1,6 +1,6 @@
 ## ✅ Updates by amit
 
-- [ ] Added an **ON/OFF toggle** for forced subscription in `config.py`  
+- [x] Added an **ON/OFF toggle** for forced subscription in `config.py`  
 - [ ] 
 - [ ] 
 
