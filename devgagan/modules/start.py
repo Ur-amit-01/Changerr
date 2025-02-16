@@ -6,6 +6,7 @@ import asyncio
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.raw.functions.bots import SetBotInfo
 from pyrogram.raw.types import InputUserSelf
+
 # ------------------- Start-Buttons ------------------- #
 
 from pyrogram.types import BotCommand, InlineKeyboardButton, InlineKeyboardMarkup
@@ -21,23 +22,22 @@ async def set(_, message):
         BotCommand("batch", "🫠 Extract in bulk"),
         BotCommand("login", "🔑 Get into the bot"),
         BotCommand("logout", "🚪 Get out of the bot"),
-        BotCommand("token", "🎲 Get 3 hours free access"),
+        BotCommand("settings", "⚙️ Personalize things"),
+        BotCommand("help", "❓ If you're a noob, still!"),
+        BotCommand("cancel", "🚫 Cancel batch process"),
+        BotCommand("plan", "🗓️ Check our premium plans"),   
+        BotCommand("myplan", "⌛ Get your plan details"),        
+        BotCommand("speedtest", "🚅 Speed of server"),        
         BotCommand("adl", "👻 Download audio from 30+ sites"),
         BotCommand("dl", "💀 Download videos from 30+ sites"),
         BotCommand("transfer", "💘 Gift premium to others"),
-        BotCommand("myplan", "⌛ Get your plan details"),
         BotCommand("add", "➕ Add user to premium"),
         BotCommand("rem", "➖ Remove from premium"),
-        BotCommand("settings", "⚙️ Personalize things"),
         BotCommand("stats", "📊 Get stats of the bot"),
-        BotCommand("plan", "🗓️ Check our premium plans"),
         BotCommand("terms", "🥺 Terms and conditions"),
-        BotCommand("speedtest", "🚅 Speed of server"),
         BotCommand("get", "🗄️ Get all user IDs"),
         BotCommand("lock", "🔒 Protect channel from extraction"),
-        BotCommand("gcast", "⚡ Broadcast message to bot users"),
-        BotCommand("help", "❓ If you're a noob, still!"),
-        BotCommand("cancel", "🚫 Cancel batch process")
+        BotCommand("gcast", "⚡ Broadcast message to bot users")
     ])
     
     await message.reply("✅ Commands configured successfully!")
@@ -170,25 +170,35 @@ async def terms(client, message):
         ]
     )
     await message.reply_text(terms_text, reply_markup=buttons)
+    
 
-
-@app.on_message(filters.command("plan") & filters.private)
+@Client.on_message(filters.command("plan"))
 async def plan(client, message):
     plan_text = (
-        "💰 **Premium Price**: Starting from $2 or 200 INR accepted via **__Amazon Gift Card__** (terms and conditions apply).\n"
-        "📥 **Download Limit**: Users can download up to 100,000 files in a single batch command.\n"
-        "🛑 **Batch**: You will get two modes /bulk and /batch.\n"
-        "   - Users are advised to wait for the process to automatically cancel before proceeding with any downloads or uploads.\n\n"
-        "📜 **Terms and Conditions**: For further details and complete terms and conditions, please send /terms.\n"
+        "💰 **premium price**: starting from **15₹** for **1 week**.\n"
+        "📥 **download limit**: users can download up to **100,000 files** in a single batch command.\n"
+        "🛑 **batch modes**: you get **/bulk** and **/batch** modes.\n"
+        "   - users are advised to wait for the process to automatically cancel before proceeding.\n\n"
+        "🎖 **available premium plans**:\n"
+        "   ❏ **15₹**     ➠    **01 week**\n"
+        "   ❏ **50₹**     ➠    **01 month**\n"
+        "   ❏ **90₹**     ➠    **02 months**\n"
+        "   ❏ **120₹**   ➠    **03 months**\n"
+        "   ❏ **199₹**   ➠    **06 months**\n"
+        "   ❏ **350₹**   ➠    **12 months**\n\n"
+        "🆔 **purchase** ➩ [click here](https://t.me/axa_bachha)\n"
+        "⛽ **check your active plan**: /myplan\n"
+        "📜 **terms & conditions**: for details, send /terms.\n"
     )
+    
     # Buttons for "See Terms" and "Contact"
     buttons = InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("📜 See Terms", callback_data="see_terms")],
-            [InlineKeyboardButton("💬 Contact Now", url="https://t.me/kingofpatal")],
+            [InlineKeyboardButton("📜 see terms", callback_data="see_terms")],
+            [InlineKeyboardButton("💬 contact now", url="https://t.me/axa_bachha")],
         ]
     )
-    await message.reply_text(plan_text, reply_markup=buttons)
+    await message.reply_text(plan_text, reply_markup=buttons, disable_web_page_preview=True)
 
 
 @app.on_callback_query(filters.regex("see_plan"))
