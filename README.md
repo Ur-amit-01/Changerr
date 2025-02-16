@@ -1,3 +1,10 @@
+## ✅ Updates by amit
+
+- [ ] Added an **ON/OFF toggle** for forced subscription in `config.py`  
+- [ ] 
+- [ ] 
+
+
 <h1 align="center">
   <b>V3 branch</b> | Summer Release V2
 </h1>
