@@ -4,7 +4,7 @@
 import math
 import time , re
 from pyrogram import enums
-from config import CHANNEL_ID, OWNER_ID 
+from config import CHANNEL_ID, OWNER_ID, FORCE_SUBSCRIPTION
 from devgagan.core import script
 from devgagan.core.mongo.plans_db import premium_users
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -23,28 +23,35 @@ async def chk_user(message, user_id):
         # await message.reply_text("Purchase premium to do the tasks...")
         return 1
 
-
-
 async def gen_link(app,chat_id):
    link = await app.export_chat_invite_link(chat_id)
    return link
 
-async def subscribe(app, message):
-   update_channel = CHANNEL_ID
-   url = await gen_link(app, update_channel)
-   if update_channel:
-      try:
-         user = await app.get_chat_member(update_channel, message.from_user.id)
-         if user.status == "kicked":
-            await message.reply_text("You are Banned. Contact -- @devgaganin")
-            return 1
-      except UserNotParticipant:
-         await message.reply_photo(photo="https://graph.org/file/d44f024a08ded19452152.jpg",caption=script.FORCE_MSG.format(message.from_user.mention), reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{url}")]]))
-         return 1
-      except Exception:
-         await message.reply_text("Something Went Wrong. Contact us @devgaganin...")
-         return 1
 
+async def subscribe(app, message):
+    if not FORCE_SUBSCRIPTION:  
+        return 0  # Skip subscription check if disabled    
+    update_channel = CHANNEL_ID
+    url = await gen_link(app, update_channel)
+    
+    if update_channel:
+        try:
+            user = await app.get_chat_member(update_channel, message.from_user.id)
+            if user.status == "kicked":
+                await message.reply_text("You are Banned. Contact -- @Axa_bachha")
+                return 1
+        except UserNotParticipant:
+            await message.reply_photo(
+                photo="https://graph.org/file/d44f024a08ded19452152.jpg",
+                caption=script.FORCE_MSG.format(message.from_user.mention),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{url}")]])
+            )
+            return 1
+        except Exception:
+            await message.reply_text("Something Went Wrong. Contact us @axa_bachha...")
+            return 1 
+
+    return 0  # Allow access if already subscribed
 
 
 async def get_seconds(time_string):
